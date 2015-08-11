@@ -430,10 +430,12 @@ Default: <>
 #####`ssl_ca`
 Default: <>
 
-
 #####`service_manage`
 Whether or not the MongoDB service resource should be part of the catalog.
 Default: true
+
+#####`restart`
+Specifies whether the service should be restarted on config changes. Default: 'true'
 
 ####Class: mongodb::mongos
 class. This class should only be used if you want to implement sharding within
@@ -486,6 +488,9 @@ This setting can be used to specify if puppet should install the package or not
 This setting can be used to specify the name of the package that should be installed.
 If not specified, the module will use whatever service name is the default for your OS distro.
 
+#####`restart`
+Specifies whether the service should be restarted on config changes. Default: 'true'
+
 ### Definitions
 
 #### Definition: mongodb:db
@@ -526,7 +531,7 @@ The maximum amount of two second tries to wait MongoDB startup. Default: 10
 
 ```puppet
 mongodb_user { testuser:
-  username      => 'testuser',
+  name          => 'testuser',
   ensure        => present,
   password_hash => mongodb_password('testuser', 'p@ssw0rd'),
   database      => testdb,
@@ -607,6 +612,10 @@ This module has been tested on:
 For a full list of tested operating systems please have a look at the [.nodeset.xml](https://github.com/puppetlabs/puppetlabs-mongodb/blob/master/.nodeset.yml) definition.
 
 This module should support `service_ensure` separate from the `ensure` value on `Class[mongodb::server]` but it does not yet.
+
+### Apt module support
+
+While this module supports both 1.x and 2.x versions of the puppetlabs-apt module, it does not support puppetlabs-apt 2.0.0 or 2.0.1.
 
 ## Development
 
